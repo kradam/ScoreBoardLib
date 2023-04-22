@@ -13,12 +13,12 @@ namespace ScoreBoardLib
         public (int Home, int Away) Score { get; private set; }
         public DateTime StartTime { get; }
 
-        public Match(string homeTeam, string awayTeam, DateTime startTime)
+        public Match(string homeTeam, string awayTeam)
         {
             HomeTeam = homeTeam;
             AwayTeam = awayTeam;
             Score = (0, 0);
-            StartTime = startTime;
+            StartTime = DateTime.UtcNow;
         }
 
         public void UpdateScore(int home, int away)
