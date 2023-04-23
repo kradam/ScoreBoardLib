@@ -5,7 +5,7 @@
 
     public interface IScoreboard
     {
-        IMatch StartNewGame(string homeTeam, string awayTeam);
+        IMatch StartNewGame(IMatch match);
         void UpdateScore(IMatch match, int home, int away);
         void FinishGame(IMatch match);
         IList<IMatch> GetInProgressGames();
