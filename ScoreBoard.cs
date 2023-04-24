@@ -3,7 +3,6 @@
     using ScoreBoardLib;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class Scoreboard : IScoreboard
     {
@@ -12,12 +11,11 @@
 
         public Scoreboard(IMatchSortingStrategy sortingStrategy)
         {
-            _sortingStrategy = sortingStrategy; // ?? throw new ArgumentNullException(nameof(sortingStrategy));
+            _sortingStrategy = sortingStrategy; 
         }
 
         public IMatch StartNewGame(IMatch match)
         {
-            //var match = new Match(homeTeam, awayTeam);
             _matches.Add(match);
             return match;
         }

@@ -50,10 +50,36 @@
             IList<IMatch> inProgressGames = scoreboard.GetInProgressGames();
 
             Assert.DoesNotContain(match, inProgressGames);
-
             Assert.Throws<ArgumentException>(() => scoreboard.FinishGame(match));
         }
-        
-    }
 
+        [Fact]
+        public void GetInProgressGames_ReturnsOrderedMatches()
+        {
+            IScoreboard scoreboard = new Scoreboard(_sortingStrategy);
+
+            IMatch match1 = new Match("#1_Home", "#1_Away");
+            IMatch match2 = new Match("#2_Home", "#2_Away");
+            IMatch match3 = new Match("#3_Home", "#3_Away");
+            IMatch match4 = new Match("#4_Home", "#4_Away");
+
+            scoreboard.StartNewGame(match1);
+            scoreboard.StartNewGame(match2);
+            scoreboard.StartNewGame(match3);
+            scoreboard.StartNewGame(match4);
+
+            scoreboard.UpdateScore(match1, 1, 0);
+            scoreboard.UpdateScore(match2, 2, 2);
+            scoreboard.UpdateScore(match3, 0, 1);
+
+            scoreboard.FinishGame(match4); 
+
+            var inProgressGames = scoreboard.GetInProgressGames();
+
+            Assert.Equal(3, inProgressGames.Count);
+            Assert.Equal(match2, inProgressGames[0]);
+            Assert.Equal(match3, inProgressGames[1]);
+            Assert.Equal(match1, inProgressGames[2]);
+        }
+    }
 }
