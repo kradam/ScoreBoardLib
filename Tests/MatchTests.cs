@@ -9,20 +9,18 @@ namespace ScoreBoardLib
         {
             string homeTeam = "HomeTeam";
             string awayTeam = "AwayTeam";
-            DateTime startTime = DateTime.UtcNow;
 
-            Match match = new Match(homeTeam, awayTeam, startTime);
+            Match match = new (homeTeam, awayTeam);
 
             Assert.Equal(homeTeam, match.HomeTeam);
             Assert.Equal(awayTeam, match.AwayTeam);
-            Assert.Equal((1, 0), match.Score);
-            Assert.Equal(startTime, match.StartTime);
+            Assert.Equal((0, 0), match.Score);
         }
 
         [Fact]
         public void UpdateScore_UpdatesScoreCorrectly()
         {
-            Match match = new Match("HomeTeam", "AwayTeam", DateTime.UtcNow);
+            Match match = new ("HomeTeam", "AwayTeam");
             int newHomeScore = 3;
             int newAwayScore = 2;
 
@@ -35,7 +33,7 @@ namespace ScoreBoardLib
         public void UpdateScore_ThrowsException_WhenNegativeScoreProvided()
         {
             // Arrange
-            Match match = new Match("HomeTeam", "AwayTeam", DateTime.UtcNow);
+            Match match = new ("HomeTeam", "AwayTeam");
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => match.UpdateScore(-1, 0));
